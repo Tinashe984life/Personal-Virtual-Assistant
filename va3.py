@@ -1,6 +1,3 @@
-from dis import Instruction
-from operator import contains
-from xml.etree.ElementInclude import include
 from colorama import Fore
 from googlesearch import search
 import sys, os, pyttsx3, webbrowser, wikipedia, datetime
@@ -70,6 +67,12 @@ try:
     elif "what is" in phrase.lower(): #Search info from wikipedia with "What is" command
         query = phrase.replace("what is", "")
         info = wikipedia.summary(query, 3)
+        print(info)
+        assistant(info)
+    
+    elif "search" in phrase.lower():
+        query = phrase.replace("search", "")
+        info = wikipedia.summary(query, 2)
         print(info)
         assistant(info)
 
