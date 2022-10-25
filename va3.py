@@ -1,3 +1,4 @@
+from dis import Instruction
 from operator import contains
 from xml.etree.ElementInclude import include
 from colorama import Fore
@@ -5,6 +6,7 @@ from googlesearch import search
 import sys, os, pyttsx3, webbrowser, wikipedia, datetime
 import speech_recognition as sr
 import re
+import pywhatkit
 
 #Obtaining voice input from the microphone
 listener = sr.Recognizer() 
@@ -53,6 +55,24 @@ try:
         assistant("Here are the results for "+ query)
         for r in results:
             print(Fore.RED, r)
+
+    elif "play" in phrase.lower(): #Play songs from Youtube
+        song = phrase.replace('play', '')
+        assistant("playing" + song)
+        pywhatkit.playonyt(song)
+    
+    elif "who is" in phrase.lower(): #Search famous people on wikipedia
+        person = phrase.replace('who is', '')
+        info = wikipedia.summary(person, 1)
+        print(info)
+        assistant(info)
+    
+    elif "what is" in phrase.lower(): #Search info from wikipedia with "What is" command
+        query = phrase.replace("what is", "")
+        info = wikipedia.summary(query, 3)
+        print(info)
+        assistant(info)
+
 except sr.UnknownValueError:
     print(Fore.RED, 'Hey, I could not understand that')
 except sr.RequestError as e:
