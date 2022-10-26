@@ -4,6 +4,12 @@ import sys, os, pyttsx3, webbrowser, wikipedia, datetime
 import speech_recognition as sr
 import re
 import pywhatkit
+import smtplib
+
+contacts = {
+    "James": "madtinashe@gmail.com",
+    "John": "tinashe984life@gmail.com"
+}
 
 #Obtaining voice input from the microphone
 listener = sr.Recognizer() 
@@ -13,7 +19,7 @@ def assistant(audio):
     engine = pyttsx3.init()
     voices = engine.getProperty('voices')
     engine.setProperty('voice', voices[1].id)
-    engine.setProperty('rate', 250)
+    engine.setProperty('rate', 150)
     engine.say(audio)
     engine.runAndWait()
     
@@ -21,6 +27,15 @@ def assistant(audio):
 
 def greet():
     assistant('Hello, How may i help you')
+
+def sendMail(msg):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+
+    server.login("tinashe984life@gmail.com", "kaleltintintantanja")
+    server.sendmail("tinashe984life@gmail.com", "madtinashe@gmail.com", msg)
+    print('Mail Sent')
+    assistant("Your email has been sent")    
 
 # Taking voice from the microphone and using the microphone as the source
 with sr.Microphone() as source:
@@ -75,9 +90,19 @@ try:
         info = wikipedia.summary(query, 2)
         print(info)
         assistant(info)
+    
+    elif "send" in phrase.lower():
+        phrase = phrase.lower()
+        if "to james" in phrase.lower():
+            
+            mail = phrase.replace("send", "")
+            mail = mail.replace("to james", "")
+            print(f"From: madtinashe@gmail.com \n TO: Tinashe \n Message:   {mail}")
+            sendMail(mail)
 
 except sr.UnknownValueError:
     print(Fore.RED, 'Hey, I could not understand that')
+    assistant("Hey, I could not understand that")
 except sr.RequestError as e:
     print(Fore.RED, 'Request from Google Speech Recognition failed; {0}'.format(e))
 
