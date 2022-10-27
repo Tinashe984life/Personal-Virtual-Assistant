@@ -53,11 +53,19 @@ try:
 
     elif "google" in phrase.lower(): #Does a Google search and collects results
         query = phrase.replace('Google', '')
-        print(Fore.BLACK, query)
+        print(Fore.BLUE, query)
         results = search(query, tld='com', num=10, stop=10, lang='en', pause=3)
         assistant("Here are the results for "+ query)
         for r in results:
             print(Fore.RED, r)
+
+    elif "go to" in phrase.lower():
+        site = phrase.replace('go to', '')
+        site = site.strip()
+        print(Fore.BLUE, site)
+        chrome_path = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
+        webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(chrome_path))
+        webbrowser.get('chrome').open_new_tab(site)
 
     elif "play" in phrase.lower(): #Play songs from Youtube
         song = phrase.replace('play', '')
