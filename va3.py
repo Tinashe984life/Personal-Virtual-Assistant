@@ -27,16 +27,7 @@ def assistant(audio):
 
 def greet():
     assistant('Hello, How may i help you')
-
-def sendMail(msg):
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls()
-
-    server.login("tinashe984life@gmail.com", "kaleltintintantanja")
-    server.sendmail("tinashe984life@gmail.com", "madtinashe@gmail.com", msg)
-    print('Mail Sent')
-    assistant("Your email has been sent")    
-
+    
 # Taking voice from the microphone and using the microphone as the source
 with sr.Microphone() as source:
     print(Fore.BLUE, "Say Something...!")
@@ -91,14 +82,6 @@ try:
         print(info)
         assistant(info)
     
-    elif "send" in phrase.lower():
-        phrase = phrase.lower()
-        if "to james" in phrase.lower():
-            
-            mail = phrase.replace("send", "")
-            mail = mail.replace("to james", "")
-            print(f"From: madtinashe@gmail.com \n TO: Tinashe \n Message:   {mail}")
-            sendMail(mail)
 
 except sr.UnknownValueError:
     print(Fore.RED, 'Hey, I could not understand that')
