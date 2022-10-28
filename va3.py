@@ -51,13 +51,19 @@ try:
         min = time[14:16]
         assistant("The time is "+ hour +" " + min )
 
-    elif "google" in phrase.lower(): #Does a Google search and collects results
-        query = phrase.replace('Google', '')
+    elif "look up" in phrase.lower(): #Does a Google search and prints the top 10 url results in the console
+        query = phrase.replace('look up', '')
         print(Fore.BLUE, query)
         results = search(query, tld='com', num=10, stop=10, lang='en', pause=3)
         assistant("Here are the results for "+ query)
         for r in results:
             print(Fore.RED, r)
+
+    elif "google" in phrase.lower(): #Does a google search and shows results in the browser
+        query = phrase.replace("Google", "")
+        print(Fore.BLUE, query)
+        assistant("Here are the google results for " + query)
+        pywhatkit.search(query)
 
     elif "go to" in phrase.lower():
         site = phrase.replace('go to', '')
