@@ -95,6 +95,12 @@ try:
         info = wikipedia.summary(query, 2)
         print(info)
         assistant(info)
+
+    elif "open code" in phrase.lower(): #opens visual studio code
+        query = phrase.lower()
+        print(query)
+        assistant("Opening Visual Studio Code")
+        os.system(r'"C:\Users\Tinashe\AppData\Local\Programs\Microsoft VS Code\code.exe"')
     
 
 except sr.UnknownValueError:
